@@ -66,25 +66,6 @@
       right: 1rem;
     }
 
-    .buttons button#refresh {
-      position: absolute;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #e5ebf3;
-      border: none;
-      color: #362a2b;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-
-    .buttons button#refresh:hover {
-      background-color: #362a2b;
-      color: #e5ebf3;
-    }
-
     .buttons button {
       border: 2px solid #e5ebf3;
       background-color: transparent;
@@ -100,53 +81,67 @@
       color: #362a2b;
     }
 
-    @media (min-width: 640px) and (min-height: 640px) {
-      .slide .content {
-        bottom: 70px;
-        left: -600px;
-        width: 600px;
-        padding: 2rem;
-        line-height: 1.6;
-      }
-
-      .slide .content h1 {
-        font-size: 2rem;
-      }
-
-      .slide.current .content {
-        transform: translateX(600px);
-      }
+    /* Refresh Button Styling */
+    .refresh-button {
+      position: absolute;
+      bottom: 10%;
+      right: 10%;
+      padding: 10px 20px;
+      background-color: #e5ebf3;
+      color: #362a2b;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
     }
+
+    .refresh-button:hover {
+      background-color: #362a2b;
+      color: #e5ebf3;
+    }
+
   </style>
 </head>
 
 <body>
-  <!-- partial:index.partial.html -->
+  <!-- Slider Container -->
   <div class="slider">
     <div class="slide current"></div>
     <div class="slide"></div>
     <div class="slide"></div>
   </div>
+
+  <!-- Buttons for navigating the slides -->
   <div class="buttons">
     <button id="prev"><i class="fas fa-arrow-left"></i></button>
     <button id="next"><i class="fas fa-arrow-right"></i></button>
-    <!-- New Refresh Button -->
-    <button id="refresh">Refresh</button>
   </div>
-  <!-- partial -->
+
+  <!-- Refresh Button -->
+  <button class="refresh-button" id="refresh">Refresh Slide</button>
+
   <script>
     const slides = document.querySelectorAll(".slide");
     const nextButton = document.getElementById("next");
     const prevButton = document.getElementById("prev");
     const refreshButton = document.getElementById("refresh");
-    const auto = true;
 
-    // Calculate the date-based slide index
-    const getDayIndex = () => {
+    const auto = true;
+    const intervalTime = 86400000; // 24 hours in milliseconds
+    let slideInterval;
+
+    // Set the initial slide based on the current day
+    const setDailySlide = () => {
       const today = new Date();
-      return today.getDate() % slides.length;  // Cycle through slides based on the day of the month
+      const dayIndex = today.getDate() % slides.length;
+      slides.forEach((slide, index) => {
+        slide.classList.remove("current");
+        if (index === dayIndex) {
+          slide.classList.add("current");
+        }
+      });
     };
 
+    // Function to go to the next slide
     const nextSlide = () => {
       const current = document.querySelector(".current");
       current.classList.remove("current");
@@ -157,6 +152,7 @@
       }
     };
 
+    // Function to go to the previous slide
     const prevSlide = () => {
       const current = document.querySelector(".current");
       current.classList.remove("current");
@@ -167,34 +163,36 @@
       }
     };
 
-    // Automatically change slide based on the date
-    const setDailySlide = () => {
-      const dayIndex = getDayIndex();
-      slides.forEach((slide, index) => {
-        slide.classList.remove("current");
-        if (index === dayIndex) {
-          slide.classList.add("current");
-        }
-      });
-    };
+    // Set up auto-refresh based on the time interval (24 hours)
+    if (auto) {
+      slideInterval = setInterval(nextSlide, intervalTime);
+      setDailySlide(); // Set the initial slide
+    }
 
+    // Event listener for the next button
     nextButton.addEventListener("click", () => {
       nextSlide();
-      setDailySlide(); // Refresh the slide daily after manual navigation
+      if (auto) {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, intervalTime);
+      }
     });
+
+    // Event listener for the previous button
     prevButton.addEventListener("click", () => {
       prevSlide();
-      setDailySlide(); // Refresh the slide daily after manual navigation
+      if (auto) {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, intervalTime);
+      }
     });
 
-    // Set the initial slide based on today's date
-    setDailySlide();
-
-    // Refresh Button functionality
+    // Event listener for the refresh button
     refreshButton.addEventListener("click", () => {
-      setDailySlide(); // Re-apply the daily slide immediately when clicked
+      setDailySlide(); // Manually refresh to the daily slide
     });
   </script>
+
 </body>
 
 </html>

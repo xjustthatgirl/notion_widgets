@@ -1,47 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalized Skincare Routine Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sansita Swashed', sans-serif;
+            background-color: #ffffff;
+            color: rgb(85, 83, 79); /* Dark grey for text */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #AFA395; /* Soft beige for heading */
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        select,
+        button {
+            padding: 12px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        select {
+            background-color: #ffffff;
+            color: rgb(85, 83, 79); /* Dark grey for text */
+        }
+
+        button {
+            background-color: #AFA395; /* Soft beige for button */
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #8f927f;
+        }
+
+        #routineResult {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        #routineResult h2 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+
+        #routineResult p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+    </style>
 </head>
+
 <body>
 
-    <h1>Personalized Skincare Routine Generator</h1>
+    <div class="container">
+        <h1>Personalized Skincare Routine Generator</h1>
 
-    <form id="skincareForm">
-        <label for="skinType">Select your skin type:</label>
-        <select id="skinType">
-            <option value="oily">Oily</option>
-            <option value="dry">Dry</option>
-            <option value="combination">Combination</option>
-            <option value="sensitive">Sensitive</option>
-        </select>
+        <form id="skincareForm">
+            <label for="skinType">Select your skin type:</label>
+            <select id="skinType">
+                <option value="oily">Oily</option>
+                <option value="dry">Dry</option>
+                <option value="combination">Combination</option>
+                <option value="sensitive">Sensitive</option>
+            </select>
 
-        <label for="skinConcerns">Select your main skin concern:</label>
-        <select id="skinConcerns">
-            <option value="acne">Acne</option>
-            <option value="wrinkles">Wrinkles</option>
-            <option value="darkSpots">Dark Spots</option>
-            <option value="hydration">Dryness</option>
-        </select>
+            <label for="skinConcerns">Select your main skin concern:</label>
+            <select id="skinConcerns">
+                <option value="acne">Acne</option>
+                <option value="wrinkles">Wrinkles</option>
+                <option value="darkSpots">Dark Spots</option>
+                <option value="hydration">Dryness</option>
+            </select>
 
-        <label for="budget">Select your budget:</label>
-        <select id="budget">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-        </select>
+            <label for="budget">Select your budget:</label>
+            <select id="budget">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
 
-        <button type="submit">Generate Routine</button>
-    </form>
+            <button type="submit">Generate Routine</button>
+        </form>
 
-    <div id="routineResult" style="display:none;">
-        <h2>Your Personalized Skincare Routine:</h2>
-        <div id="routine"></div>
+        <div id="routineResult">
+            <h2>Your Personalized Skincare Routine</h2>
+            <p id="routine"></p>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('skincareForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const skinType = document.getElementById('skinType').value;
+            const skinConcerns = document.getElementById('skinConcerns').value;
+            const budget = document.getElementById('budget').value;
+
+            let routine = "Your personalized skincare routine: <br>";
+
+            if (skinType === "dry") {
+                routine += "1. Cleanser: Hydrating Cleanser <br>";
+                routine += "2. Serum: Moisturizing Serum <br>";
+                routine += "3. Moisturizer: Rich Cream Moisturizer <br>";
+            } else if (skinType === "oily") {
+                routine += "1. Cleanser: Oil-Free Cleanser <br>";
+                routine += "2. Serum: Balancing Serum <br>";
+                routine += "3. Moisturizer: Gel-Based Moisturizer <br>";
+            } else if (skinType === "combination") {
+                routine += "1. Cleanser: Gentle Cleanser <br>";
+                routine += "2. Serum: Brightening Serum <br>";
+                routine += "3. Moisturizer: Lightweight Moisturizer <br>";
+            } else {
+                routine += "1. Cleanser: Gentle Cleanser <br>";
+                routine += "2. Serum: Hydrating Serum <br>";
+                routine += "3. Moisturizer: Normal Moisturizer <br>";
+            }
+
+            if (skinConcerns === "acne") {
+                routine += "4. Treatment: Acne Spot Treatment <br>";
+            } else if (skinConcerns === "wrinkles") {
+                routine += "4. Treatment: Anti-aging Cream <br>";
+            } else if (skinConcerns === "darkSpots") {
+                routine += "4. Treatment: Brightening Cream <br>";
+            } else if (skinConcerns === "hydration") {
+                routine += "4. Treatment: Hydrating Mask <br>";
+            }
+
+            if (budget === "low") {
+                routine += "Suggested products are budget-friendly.";
+            } else if (budget === "medium") {
+                routine += "Suggested products are mid-range priced.";
+            } else {
+                routine += "Suggested products are premium.";
+            }
+
+            document.getElementById('routine').innerHTML = routine;
+            document.getElementById('routineResult').style.display = 'block';
+        });
+    </script>
+
 </body>
+
 </html>

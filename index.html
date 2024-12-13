@@ -16,9 +16,9 @@
 
     body {
       font-family: "Lexend", sans-serif;
-      background-color: #fff; /* Removed the grey background */
-      color: #000; /* Changed text color to black for better contrast */
-      overflow: hidden; /* Prevent scrolling */
+      background-color: #362a2b;
+      color: #e5ebf3;
+      overflow: hidden;
     }
 
     .slider {
@@ -87,9 +87,9 @@
     }
 
     .buttons button {
-      border: 2px solid #000; /* Changed border to black for contrast */
+      border: 2px solid #e5ebf3;
       background-color: transparent;
-      color: #000; /* Set text color to black */
+      color: #e5ebf3;
       cursor: pointer;
       padding: 13px 15px;
       border-radius: 50%;
@@ -97,8 +97,8 @@
     }
 
     .buttons button:hover {
-      background-color: #000;
-      color: #fff; /* Changed text color on hover to white */
+      background-color: #e5ebf3;
+      color: #362a2b;
     }
   </style>
 </head>
@@ -124,7 +124,7 @@
     const nextButton = document.getElementById("next");
     const prevButton = document.getElementById("prev");
     const auto = true;
-    const intervalTime = 43200000
+    const intervalTime = 43200000;
     let slideInterval;
 
     const nextSlide = () => {
@@ -163,7 +163,6 @@
       }
     });
 
-    // Automatically refresh the slide every 12 hours
     if (auto) {
       slideInterval = setInterval(nextSlide, intervalTime);
     }

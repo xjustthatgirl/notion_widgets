@@ -1,8 +1,8 @@
-document.getElementById('skincare-form').addEventListener('submit', function (event) {
+document.getElementById('skincareForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const skinType = document.getElementById('skin-type').value;
-    const skinConcerns = document.getElementById('skin-concerns').value;
+    const skinType = document.getElementById('skinType').value;
+    const skinConcerns = document.getElementById('skinConcerns').value;
     const budget = document.getElementById('budget').value;
 
     let routine = "Your personalized skincare routine: <br>";
@@ -29,11 +29,9 @@ document.getElementById('skincare-form').addEventListener('submit', function (ev
         routine += "4. Treatment: Acne Spot Treatment <br>";
     } else if (skinConcerns === "wrinkles") {
         routine += "4. Treatment: Anti-aging Cream <br>";
-    } else if (skinConcerns === "hyperpigmentation") {
+    } else if (skinConcerns === "darkSpots") {
         routine += "4. Treatment: Brightening Cream <br>";
-    } else if (skinConcerns === "sensitive") {
-        routine += "4. Treatment: Soothing Gel <br>";
-    } else if (skinConcerns === "dryness") {
+    } else if (skinConcerns === "hydration") {
         routine += "4. Treatment: Hydrating Mask <br>";
     }
 
@@ -46,5 +44,5 @@ document.getElementById('skincare-form').addEventListener('submit', function (ev
     }
 
     document.getElementById('routine').innerHTML = routine;
-    document.getElementById('result').style.display = 'block';
+    document.getElementById('routineResult').style.display = 'block';
 });

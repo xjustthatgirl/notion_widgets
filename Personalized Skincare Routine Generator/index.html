@@ -27,10 +27,20 @@
             <option value="hydration">Dryness</option>
         </select>
 
+        <label for="budget">Select your budget:</label>
+        <select id="budget">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+
         <button type="submit">Generate Routine</button>
     </form>
 
-    <div id="routineResult"></div>
+    <div id="routineResult" class="result">
+        <h2>Your Personalized Skincare Routine:</h2>
+        <div id="routine"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>

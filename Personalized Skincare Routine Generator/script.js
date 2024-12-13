@@ -1,48 +1,57 @@
-document.getElementById('skincareForm').addEventListener('submit', function (event) {
-    event.preventDefault();
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
 
-    const skinType = document.getElementById('skinType').value;
-    const skinConcerns = document.getElementById('skinConcerns').value;
-    const budget = document.getElementById('budget').value;
+h1 {
+    text-align: center;
+    margin: 50px;
+}
 
-    let routine = "Your personalized skincare routine: <br>";
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
 
-    if (skinType === "dry") {
-        routine += "1. Cleanser: Hydrating Cleanser <br>";
-        routine += "2. Serum: Moisturizing Serum <br>";
-        routine += "3. Moisturizer: Rich Cream Moisturizer <br>";
-    } else if (skinType === "oily") {
-        routine += "1. Cleanser: Oil-Free Cleanser <br>";
-        routine += "2. Serum: Balancing Serum <br>";
-        routine += "3. Moisturizer: Gel-Based Moisturizer <br>";
-    } else if (skinType === "combination") {
-        routine += "1. Cleanser: Gentle Cleanser <br>";
-        routine += "2. Serum: Brightening Serum <br>";
-        routine += "3. Moisturizer: Lightweight Moisturizer <br>";
-    } else {
-        routine += "1. Cleanser: Gentle Cleanser <br>";
-        routine += "2. Serum: Hydrating Serum <br>";
-        routine += "3. Moisturizer: Normal Moisturizer <br>";
-    }
+select {
+    padding: 10px;
+    font-size: 1em;
+    width: 200px;
+    margin: 10px 0;
+}
 
-    if (skinConcerns === "acne") {
-        routine += "4. Treatment: Acne Spot Treatment <br>";
-    } else if (skinConcerns === "wrinkles") {
-        routine += "4. Treatment: Anti-aging Cream <br>";
-    } else if (skinConcerns === "darkSpots") {
-        routine += "4. Treatment: Brightening Cream <br>";
-    } else if (skinConcerns === "hydration") {
-        routine += "4. Treatment: Hydrating Mask <br>";
-    }
+button {
+    padding: 12px 20px;
+    background-color: #6c63ff;
+    color: white;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
-    if (budget === "low") {
-        routine += "Suggested products are budget-friendly.";
-    } else if (budget === "medium") {
-        routine += "Suggested products are mid-range priced.";
-    } else {
-        routine += "Suggested products are premium.";
-    }
+button:hover {
+    background-color: #5a53e6;
+}
 
-    document.getElementById('routine').innerHTML = routine;
-    document.getElementById('routineResult').style.display = 'block';
-});
+#routineResult {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#routineResult h2 {
+    margin-bottom: 15px;
+}
+
+#routine {
+    font-size: 1.2em;
+    line-height: 1.5;
+}

@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Full-Screen Responsive Image Slider</title>
+  <title>Responsive Image Slider</title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
-  <link rel="stylesheet" href="./style.css">
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap");
 
@@ -41,18 +40,6 @@
       opacity: 1;
     }
 
-    .slide:first-child {
-      background: url("1.png") no-repeat center top/cover;
-    }
-
-    .slide:nth-child(2) {
-      background: url("2.png") no-repeat center top/cover;
-    }
-
-    .slide:nth-child(3) {
-      background: url("3.png") no-repeat center top/cover;
-    }
-
     .buttons button#prev {
       position: absolute;
       top: 50%;
@@ -79,31 +66,27 @@
       background-color: #e5ebf3;
       color: #362a2b;
     }
-
-    @media (min-width: 640px) and (min-height: 640px) {
-      .slide .content {
-        bottom: 70px;
-        left: -600px;
-        width: 600px;
-        padding: 2rem;
-        line-height: 1.6;
-      }
-
-      .slide .content h1 {
-        font-size: 2rem;
-      }
-
-      .slide.current .content {
-        transform: translateX(600px);
-      }
-    }
   </style>
 </head>
 <body>
   <div class="slider">
-    <div class="slide current"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
+    <div class="slide current" style="background: url('1.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('2.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('3.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('4.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('6.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('7.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('8.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('9.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('10.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('11.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('15.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('16.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('17.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('18.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('19.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('20.png') no-repeat center top/cover;"></div>
+    <div class="slide" style="background: url('21.png') no-repeat center top/cover;"></div>
   </div>
   <div class="buttons">
     <button id="prev"><i class="fas fa-arrow-left"></i></button>
@@ -114,43 +97,46 @@
     const slides = document.querySelectorAll(".slide");
     const nextButton = document.getElementById("next");
     const prevButton = document.getElementById("prev");
-    const auto = true;
-    const intervalTime = 86400000; // Refresh interval for 1 day
+    const intervalTime = 86400000; 
     let slideInterval;
+    let lastShownSlideIndex = 0;
+
+    const getRandomSlide = () => {
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * slides.length);
+      } while (randomIndex === lastShownSlideIndex);
+      return randomIndex;
+    };
+
+    const showSlide = (index) => {
+      slides.forEach(slide => slide.classList.remove('current'));
+      slides[index].classList.add('current');
+      lastShownSlideIndex = index;
+    };
 
     const nextSlide = () => {
-      const current = document.querySelector(".current");
-      current.classList.remove("current");
-      const nextSlide = current.nextElementSibling || slides[0]; // If at the last slide, loop to the first
-      nextSlide.classList.add("current");
+      const randomIndex = getRandomSlide();
+      showSlide(randomIndex);
     };
 
     const prevSlide = () => {
-      const current = document.querySelector(".current");
-      current.classList.remove("current");
-      const prevSlide = current.previousElementSibling || slides[slides.length - 1]; // If at the first slide, loop to the last
-      prevSlide.classList.add("current");
+      showSlide(lastShownSlideIndex);
     };
 
     nextButton.addEventListener("click", () => {
       nextSlide();
-      if (auto) {
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, intervalTime);
-      }
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, intervalTime);
     });
 
     prevButton.addEventListener("click", () => {
       prevSlide();
-      if (auto) {
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, intervalTime);
-      }
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, intervalTime);
     });
 
-    if (auto) {
-      slideInterval = setInterval(nextSlide, intervalTime);  // Update to next slide every 24 hours
-    }
+    slideInterval = setInterval(nextSlide, intervalTime);
   </script>
 </body>
 </html>
